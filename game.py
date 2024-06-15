@@ -3,11 +3,11 @@ import time
 import random
 from PIL import Image, ImageTk
 leaderboard = {}
-def open_new_window():
-    new_window = tk.Toplevel(root)
-    new_window.title("Быстрая реакция")
-    new_window.resizable(width=False, height=False)
-    new_window.geometry("700x700")
+def open_fast_reaction():
+    fast_reaction = tk.Toplevel(root)
+    fast_reaction.title("Быстрая реакция")
+    fast_reaction.resizable(width=False, height=False)
+    fast_reaction.geometry("700x700")
     # Load the image
     image = Image.open("table.png")
     image = image.resize((int(image.width * 0.95), int(image.height * 0.8)))
@@ -36,19 +36,19 @@ def open_new_window():
                 update_leaderboard()
 
     start_time = None
-    button = tk.Button(new_window, text="Тренировка реакции", command=button_click, bg='blue', height=10, width=100)
+    button = tk.Button(fast_reaction, text="Тренировка реакции", command=button_click, bg='blue', height=10, width=100)
     button.pack(padx=10, pady=10)
     button.bind('<ButtonRelease-1>', button_release)
 
-    name_label = tk.Label(new_window, text="Напиши свое имя:")
+    name_label = tk.Label(fast_reaction, text="Напиши свое имя:")
     name_label.place(x=530, y=200)
-    name_entry = tk.Entry(new_window, width=25)
+    name_entry = tk.Entry(fast_reaction, width=25)
     name_entry.place(x=530, y=250)
 
     def back_button_click():
-        new_window.destroy()
+        fast_reaction.destroy()
 
-    back_button = tk.Button(new_window, text="Главное меню", command=back_button_click)
+    back_button = tk.Button(fast_reaction, text="Главное меню", command=back_button_click)
     back_button.pack(padx=10, pady=10)
     back_button.place(x=530, y=300)
 
