@@ -43,7 +43,7 @@ def open_fast_reaction():
     button.pack(padx=10, pady=10)
     button.bind('<ButtonRelease-1>', button_release)
 
-    name_label = tk.Label(fast_reaction, text="Напиши свое имя:")
+    name_label = tk.Label(fast_reaction, text='Напиши свое имя:')
     name_label.place(x=530, y=200)
     name_entry = tk.Entry(fast_reaction,textvariable=name_var, validate='key', validatecommand=vcmd, width=25)
     name_entry.place(x=530, y=250)
@@ -62,14 +62,17 @@ def save_leaderboard():
 def update_leaderboard():
     global leaderboard
     leaderboard = {k: v for k, v in sorted(leaderboard.items(), key=lambda item: item[0])}
+    table_text.configure(state='normal')
     table_text.delete('1.0', tk.END)
     for i, (elapsed_time, name) in enumerate(sorted(leaderboard.items(), key=lambda item: item[0]), start=1):
         table_text.insert(tk.END, f"{i}. {name}: {elapsed_time} ms\n")
+        table_text.configure(state='disabled')
         save_leaderboard()
 
     def on_closing():
         save_leaderboard()
         root.destroy()
+
 
     root.protocol('WM_DELETE_WINDOW', on_closing)
 
@@ -83,6 +86,8 @@ root.geometry("700x700")
 table_label = tk.Label(root, text='Топ 10 пользователей:')
 table_label.place(x=450, y=175)
 table_text = tk.Text(root, height=10, width=30)
+table_text.configure(state='normal')
+table_text.configure(state='disabled')
 table_text.place(x=400, y=200)
 blue_button = tk.Button(root, text='Тренировка реакции', bg='blue', height=10, width=100, state='disabled')
 blue_button.place(x=2, y=10)
