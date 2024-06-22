@@ -67,13 +67,13 @@ def save_leaderboard():
             f.write(f"{name}: {elapsed_time} ms\n")
 def update_leaderboard():
     global leaderboard
-    leaderboard = {k: v for k, v in sorted(leaderboard.items(), key=lambda item: item[0])}
+    leaderboard = {k: v for k, v in sorted(leaderboard.items(), key=lambda item: item[0])[:10]}
     table_text.configure(state='normal')
     table_text.delete('1.0', tk.END)
     for i, (elapsed_time, name) in enumerate(sorted(leaderboard.items(), key=lambda item: item[0]), start=1):
         table_text.insert(tk.END, f"{i}. {name}: {elapsed_time} ms\n")
-        table_text.configure(state='disabled')
-        save_leaderboard()
+    table_text.configure(state='disabled')
+    save_leaderboard()
 
     def on_closing():
         save_leaderboard()
