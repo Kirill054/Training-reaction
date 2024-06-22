@@ -1,6 +1,5 @@
 import tkinter as tk
 import time
-import random
 from PIL import Image, ImageTk
 leaderboard = {}
 def open_fast_reaction():
