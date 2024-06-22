@@ -12,7 +12,7 @@ def open_fast_reaction():
     image = Image.open("table.png")
     image = image.resize((int(image.width * 0.95), int(image.height * 0.8)))
     photo = ImageTk.PhotoImage(image)
-    image_label = tk.Label(new_window, image=photo)
+    image_label = tk.Label(fast_reaction, image=photo)
     image_label.place(x=10, y=175)
     image_label.image = photo
 
@@ -84,7 +84,7 @@ table_text.place(x=400, y=200)
 blue_button = tk.Button(root, text="Тренировка реакции", bg='blue', height=10, width=100, state='disabled')
 blue_button.place(x=2, y=10)
 
-button = tk.Button(root, text="Быстрая реакция", command=open_new_window, height=3, width=15)
+button = tk.Button(root, text="Быстрая реакция", command=open_fast_reaction, height=3, width=15)
 button.place(x=5, y=200)
 
 root.mainloop()
