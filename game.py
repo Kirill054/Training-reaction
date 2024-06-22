@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 leaderboard = {}
 def open_fast_reaction():
     fast_reaction = tk.Toplevel(root)
-    fast_reaction.title("Быстрая реакция")
+    fast_reaction.title('Быстрая реакция')
     fast_reaction.resizable(width=False, height=False)
     fast_reaction.geometry("700x700")
     # Load the image
@@ -34,25 +34,29 @@ def open_fast_reaction():
                 leaderboard[elapsed_time] = name_entry.get()
                 update_leaderboard()
 
+    def limit_chars(P):
+        return len(P) <= 15
     start_time = None
-    button = tk.Button(fast_reaction, text="Тренировка реакции", command=button_click, bg='blue', height=10, width=100)
+    vcmd = (fast_reaction.register(limit_chars), '%P')
+    name_var = tk.StringVar()
+    button = tk.Button(fast_reaction, text='Тренировка реакции', command=button_click, bg='blue', height=10, width=100)
     button.pack(padx=10, pady=10)
     button.bind('<ButtonRelease-1>', button_release)
 
     name_label = tk.Label(fast_reaction, text="Напиши свое имя:")
     name_label.place(x=530, y=200)
-    name_entry = tk.Entry(fast_reaction, width=25)
+    name_entry = tk.Entry(fast_reaction,textvariable=name_var, validate='key', validatecommand=vcmd, width=25)
     name_entry.place(x=530, y=250)
 
     def back_button_click():
         fast_reaction.destroy()
 
-    back_button = tk.Button(fast_reaction, text="Главное меню", command=back_button_click)
+    back_button = tk.Button(fast_reaction, text='Главное меню', command=back_button_click)
     back_button.pack(padx=10, pady=10)
     back_button.place(x=530, y=300)
 
 def save_leaderboard():
-    with open("leaderboard.txt", "w") as f:
+    with open('leaderboard.txt', "w") as f:
         for elapsed_time, name in leaderboard.items():
             f.write(f"{name}: {elapsed_time} ms\n")
 def update_leaderboard():
@@ -67,23 +71,23 @@ def update_leaderboard():
         save_leaderboard()
         root.destroy()
 
-    root.protocol("WM_DELETE_WINDOW", on_closing)
+    root.protocol('WM_DELETE_WINDOW', on_closing)
 
 
 
 root = tk.Tk()
-root.title("Training reaction")
+root.title('Training reaction')
 root.resizable(width=False, height=False)
 root.geometry("700x700")
 
-table_label = tk.Label(root, text="Топ 10 пользователей:")
+table_label = tk.Label(root, text='Топ 10 пользователей:')
 table_label.place(x=450, y=175)
 table_text = tk.Text(root, height=10, width=30)
 table_text.place(x=400, y=200)
-blue_button = tk.Button(root, text="Тренировка реакции", bg='blue', height=10, width=100, state='disabled')
+blue_button = tk.Button(root, text='Тренировка реакции', bg='blue', height=10, width=100, state='disabled')
 blue_button.place(x=2, y=10)
 
-button = tk.Button(root, text="Быстрая реакция", command=open_fast_reaction, height=3, width=15)
+button = tk.Button(root, text='Быстрая реакция', command=open_fast_reaction, height=3, width=15)
 button.place(x=5, y=200)
 
 root.mainloop()
