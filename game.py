@@ -3,7 +3,8 @@ import time
 from PIL import Image, ImageTk
 leaderboard = {}
 def open_fast_reaction():
-    fast_reaction = tk.Toplevel(root)
+
+    fast_reaction = tk.Toplevel(training_reaction)
     fast_reaction.title('Быстрая реакция')
     fast_reaction.resizable(width=False, height=False)
     fast_reaction.geometry("700x700")
@@ -19,7 +20,7 @@ def open_fast_reaction():
         nonlocal start_time
         button.config(bg='blue', command=None)
         start_time = time.time()
-        root.after(1000, lambda: button.config(bg='green', command=button_release))
+        training_reaction.after(1000, lambda: button.config(bg='green', command=button_release))
 
     def button_release(event):
         nonlocal start_time
@@ -75,28 +76,30 @@ def update_leaderboard():
 
     def on_closing():
         save_leaderboard()
-        root.destroy()
+        training_reaction.destroy()
 
 
-    root.protocol('WM_DELETE_WINDOW', on_closing)
+    training_reaction.protocol('WM_DELETE_WINDOW', on_closing)
 
 
 
-root = tk.Tk()
-root.title('Training reaction')
-root.resizable(width=False, height=False)
-root.geometry("700x700")
+training_reaction = tk.Tk()
+training_reaction.title('Training reaction')
+training_reaction.resizable(width=False, height=False)
+training_reaction.geometry("700x700")
+training_reaction.iconbitmap('icon1.ico')
 
-table_label = tk.Label(root, text='Топ 10 пользователей:')
+
+table_label = tk.Label(training_reaction, text='Топ 10 пользователей:')
 table_label.place(x=450, y=175)
-table_text = tk.Text(root, height=10, width=30)
+table_text = tk.Text(training_reaction, height=10, width=30)
 table_text.configure(state='normal')
 table_text.configure(state='disabled')
 table_text.place(x=400, y=200)
-blue_button = tk.Button(root, text='Тренировка реакции', bg='blue', height=10, width=100, state='disabled')
+blue_button = tk.Button(training_reaction, text='Тренировка реакции', bg='blue', height=10, width=100, state='disabled')
 blue_button.place(x=2, y=10)
 
-button = tk.Button(root, text='Быстрая реакция', command=open_fast_reaction, height=3, width=15)
+button = tk.Button(training_reaction, text='Быстрая реакция', command=open_fast_reaction, height=3, width=15)
 button.place(x=5, y=200)
 
-root.mainloop()
+training_reaction.mainloop()
