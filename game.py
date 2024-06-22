@@ -8,6 +8,7 @@ def open_fast_reaction():
     fast_reaction.title('Быстрая реакция')
     fast_reaction.resizable(width=False, height=False)
     fast_reaction.geometry("700x700")
+    fast_reaction.iconbitmap('icon1.ico')
 
     image = Image.open("table.png")
     image = image.resize((int(image.width * 0.95), int(image.height * 0.8)))
