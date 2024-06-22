@@ -7,7 +7,7 @@ def open_fast_reaction():
     fast_reaction.title('Быстрая реакция')
     fast_reaction.resizable(width=False, height=False)
     fast_reaction.geometry("700x700")
-    # Load the image
+
     image = Image.open("table.png")
     image = image.resize((int(image.width * 0.95), int(image.height * 0.8)))
     photo = ImageTk.PhotoImage(image)
@@ -34,18 +34,22 @@ def open_fast_reaction():
                 leaderboard[elapsed_time] = name_entry.get()
                 update_leaderboard()
 
+
+
     def limit_chars(P):
-        return len(P) <= 15
+        return len(P) <= 21
+        return True
     start_time = None
-    vcmd = (fast_reaction.register(limit_chars), '%P')
-    name_var = tk.StringVar()
+
     button = tk.Button(fast_reaction, text='Тренировка реакции', command=button_click, bg='blue', height=10, width=100)
     button.pack(padx=10, pady=10)
     button.bind('<ButtonRelease-1>', button_release)
 
     name_label = tk.Label(fast_reaction, text='Напиши свое имя:')
     name_label.place(x=530, y=200)
-    name_entry = tk.Entry(fast_reaction,textvariable=name_var, validate='key', validatecommand=vcmd, width=25)
+    chars = (fast_reaction.register(limit_chars), '%P')
+    name_chars = tk.StringVar()
+    name_entry = tk.Entry(fast_reaction,textvariable=name_chars, validate='key', validatecommand=chars, width=25)
     name_entry.place(x=530, y=250)
 
     def back_button_click():
