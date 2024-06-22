@@ -32,8 +32,11 @@ def open_fast_reaction():
         else:
             elapsed_time = round(elapsed_time - 1, 3)
             button.config(text=f'Время реакции: {elapsed_time} ms')
+            name = name_entry.get()
+            if not name:
+                name = 'Анонимус'  # default name if user doesn't enter one
             if elapsed_time not in leaderboard or elapsed_time < min(leaderboard.keys()):
-                leaderboard[elapsed_time] = name_entry.get()
+                leaderboard[elapsed_time] = name
                 update_leaderboard()
 
 
