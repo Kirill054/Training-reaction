@@ -2,6 +2,7 @@ import tkinter as tk
 import time
 from PIL import Image, ImageTk
 leaderboard = {}
+
 def open_fast_reaction():
 
     fast_reaction = tk.Toplevel(training_reaction)
@@ -19,27 +20,38 @@ def open_fast_reaction():
 
     def button_click():
         nonlocal start_time
+        print("button_click called")
+        print("start_time:", start_time)
         button.config(bg='blue', command=None)
         start_time = time.time()
+        print("start_time set to:", start_time)
         training_reaction.after(1000, lambda: button.config(bg='green', command=button_release))
 
     def button_release(event):
         nonlocal start_time
+        print("button_release called")
+        print("start_time:", start_time)
         elapsed_time = time.time() - start_time
+        print("elapsed_time:", elapsed_time)
         if elapsed_time < 1:
-            button.config(text='Слишком рано!', bg='blue',
-                          command=button_click)
+            print("elapsed_time < 1")
+            button.config(text='Слишком рано!', bg='blue', command=button_click)
         else:
+            print("elapsed_time >= 1")
             elapsed_time = round(elapsed_time - 1, 3)
+            print("elapsed_time rounded:", elapsed_time)
             button.config(text=f'Время реакции: {elapsed_time} ms')
             name = name_entry.get()
+            print("name:", name)
             if not name:
-                name = 'Анонимус'  # default name if user doesn't enter one
+                print("name is empty, setting to 'Анонимус'")
+                name = 'Анонимус'
             if elapsed_time not in leaderboard or elapsed_time < min(leaderboard.keys()):
+                print("updating leaderboard")
                 leaderboard[elapsed_time] = name
                 update_leaderboard()
-
-
+            button.after(3000, button_click)
+            button.config(text='Тренировка реакции', bg='blue', command=button_click)
 
     def limit_chars(P):
         return len(P) <= 21
